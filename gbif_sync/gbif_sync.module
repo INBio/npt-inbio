@@ -1,0 +1,158 @@
+<?php
+
+include_once('includes/gbif-portal.php');
+
+function gbif_sync_cron(){
+
+  $type = 'GBIF Sync'; 
+  $message = 'Testing the cron hook';
+  watchdog($type, $message);
+
+  #$zip_filename = __download_records();
+
+  #__process_records($zip_filename);
+  __process_records();
+
+  __send_happy_message();
+
+}
+
+function __download_records(){
+  $type = 'GBIF Sync'; 
+  $message = '__download_records';
+  watchdog($type, $message);
+
+  # while
+  #   Download 1000 records
+  #   Convert xml to csv
+  #   Write the file
+  # end while
+
+
+  $results = Array();
+  $filename = '/tmp/occurrence.'.time();
+
+  $isocountrycode = __get_participant_node();
+
+  $incremental_gap = 1000;
+  $total = get_occurrence_count($isocountrycode); 
+
+  print $total.PHP_EOL;
+
+  for ($i = 0; $i < $total; $i=$i+$incremental_gap){
+
+    print $i."\n";
+    $wsresponse =  get_occurrence_list('bj', $i, $incremental_gap);
+    $clean_wsresponse = clean_gbif_xml($wsresponse) ;
+    $xml = load_gbif_xml($clean_wsresponse);
+    if (! $xml === false){
+      $results = get_csvformated_occurrence_data($xml);
+    }
+
+
+    // delete headers for optimun dwc-a generation.
+    unset($results[0]);
+
+    // TODO: Check if the file already exists
+    // Create the occurrence file 
+    file_put_contents($filename, implode("\n", $results), FILE_APPEND );
+  }
+
+  # Generate the excel file.
+  return __create_dwca_file($filename);
+}
+
+function __create_dwca_file($occurrence_filename = 'occurrence.txt'){
+
+  //drupal-like path
+  $filepath =  "public://feeds/".hash_file('md5', $occurrence_filename).'.zip';
+
+  $zip = new ZipArchive();
+  // this is ugly... realy ugly... damn you drupal
+  $directory = drupal_realpath(drupal_get_path('module', 'gbif_sync'));
+
+  if( $zip->open( drupal_realpath($filepath) , ZipArchive::CREATE) !== TRUE ){
+    die('unable to create the file');
+  }
+
+  if( file_exists($directory.'/includes/dwc-a/meta.xml') !== TRUE ){
+    die('unable to open meta.xml file');
+  }else{
+    $zip->addFile($directory.'/includes/dwc-a/meta.xml', 'meta.xml');
+  }
+
+  if( file_exists($directory.'/includes/dwc-a/metadata.xml') !== TRUE ){
+    die('unable to open metadata.xml file');
+  }else{
+    $zip->addFile($directory.'/includes/dwc-a/metadata.xml', 'metadata.xml');
+  }
+
+  if( file_exists("$occurrence_filename") !== TRUE ){
+    die("unable to open $occurrence_filename file");
+  }else{
+    $zip->addFile("$occurrence_filename", 'occurrence.txt');
+  }
+  
+  $zip->close();
+
+  return $filepath;
+}
+
+function __process_records($filename = 'public://feeds/3ff35386e9b154fc740971db467877e6.zip'){
+  $type = 'GBIF Sync'; 
+  $message = '__process_records';
+  watchdog($type, $message);
+
+  // Define the id (machine name) of the importer you want to use.
+  $importer_id = 'feeds_dwca_location_importer';
+
+  $source = feeds_source($importer_id) ;   
+
+  // Override configurations... 
+  $fetcher_config = $source->getConfigFor($source->importer->fetcher);
+  $fetcher_config['source'] = $filename;
+
+  // Set the source fetcher config.
+  $source->setConfigFor($source->importer->fetcher, $fetcher_config);
+
+  // Execute the import.
+  $source->import();
+
+  // save the source just in case
+  $source->save();
+
+
+  // Define the id (machine name) of the importer you want to use.
+  $importer_id = 'feeds_dwca_specimen_observation_importer';
+
+  $source = feeds_source($importer_id) ;   
+
+  // Override configurations... 
+  $fetcher_config = $source->getConfigFor($source->importer->fetcher);
+  $fetcher_config['source'] = $filename;
+
+  // Set the source fetcher config.
+  $source->setConfigFor($source->importer->fetcher, $fetcher_config);
+
+  // Execute the import.
+  $source->import();
+
+  // save the source just in case
+  $source->save();
+
+}
+
+function __get_participant_node(){
+  $participant_node = variable_get('gbif_participant_node', 'CR-Costa_Rica');
+
+  $country_code = substr($participant_node, 0, 2);
+
+  return $country_code;
+}
+
+
+function __send_happy_message(){
+  $type = 'GBIF Sync'; 
+  $message = 'A happy message d[^-^]b';
+  watchdog($type, $message);
+}

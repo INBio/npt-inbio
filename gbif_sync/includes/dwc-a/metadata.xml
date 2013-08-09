@@ -1,0 +1,43 @@
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.0.2/eml.xsd"
+  packageId="0000109-130212130531216" system="http://gbif.org" scope="system"
+  xml:lang="en">
+
+  <dataset>
+    <title>NPT GBIF Sync module download</title>
+    <creator>
+      <individualName>
+        <surName>NPT GBIF Sync module</surName>
+      </individualName>
+    </creator>
+    <metadataProvider>
+      <individualName>
+        <surName>NPT GBIF Sync module</surName>
+      </individualName>
+    </metadataProvider>
+    <language>en</language>
+    <abstract>
+      <para>A dataset containing all occurrences available in GBIF matching the specified country for the NPT instance.</para>
+    </abstract>
+
+  </dataset>
+
+  <additionalMetadata>
+    <metadata>
+      <gbif>
+        <hierarchyLevel></hierarchyLevel>
+        <citation>NPT GBIF Sync module download</citation>
+        <physical>
+          <objectName></objectName>
+          <characterEncoding>UTF-8</characterEncoding>
+          <dataFormat>
+            <externallyDefinedFormat>
+              <formatName>Darwin Core Archive</formatName>
+            </externallyDefinedFormat>
+          </dataFormat>
+        </physical>
+      </gbif>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

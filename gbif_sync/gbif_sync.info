@@ -1,0 +1,9 @@
+core = "7.x"
+version = "7.x-1.0"
+
+package = AAINBio
+name = GBIF Sync 
+description = Download specific information from GBIF and put in the Drupal database via feeds_dwca.module
+
+dependencies[] = feeds
+dependencies[] = feeds_dwca
