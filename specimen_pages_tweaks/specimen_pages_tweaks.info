@@ -1,0 +1,12 @@
+core = "7.x"
+version = "7.x-1.0"
+
+package = AAINBio
+name = specimen_pages_tweaks
+description = Plinian Core species records
+
+dependencies[] = "views"
+dependencies[] = "field_group"
+dependencies[] = "scratchpads_pages"
+dependencies[] = "gm3_field_tweaks"
+
