@@ -1,0 +1,143 @@
+<?php
+
+function gm3_field_tweaks_theme(){
+  return Array(
+    'gm3_short_text' => array(
+      'variables' => array(
+        'data' => array()
+      )
+    ),
+    'gm3_latitude_text' => array(
+      'variables' => array(
+        'data' => array()
+      )
+    ),
+    'gm3_longitude_text' => array(
+      'variables' => array(
+        'data' => array()
+      )
+    ),
+    'short_text' => array(
+      'variables' => array(
+        'data' => array()
+      )
+    ),
+    'latitude_text' => array(
+      'variables' => array(
+        'data' => array()
+      )
+    ),
+    'longitude_text' => array(
+      'variables' => array(
+        'data' => array()
+      )
+    )
+  );
+}
+
+
+function gm3_field_tweaks_field_widget_info(){
+  return array(
+    'gm3_short_text' => array(
+      'label' => t('Geo: Point short text'),
+      'description' => t('Latitude/Longitude pairs entered into a text box'),
+      'field types' => array(
+        'gm3_point'
+      )
+    ),
+    'gm3_latitude_text' => array(
+      'label' => t('Geo: Point that only show latitude'),
+      'description' => t('Latitude entered into a text box'),
+      'field types' => array(
+        'gm3_point'
+      )
+    ),
+    'gm3_longitude_text' => array(
+      'label' => t('Geo: Point that only show longitude'),
+      'description' => t('Longitude entered into a text box'),
+      'field types' => array(
+        'gm3_point'
+      )
+    ),
+  );
+}
+
+function gm3_field_tweaks_field_formatter_info(){
+  return array(
+    'gm3_short' => array(
+      'label' => t('Geo field short text format.'),
+      'field types' => array(
+        'gm3_point',
+      )
+    ),
+    'gm3_latitude' => array(
+      'label' => t('Geo field latitude.'),
+      'field types' => array(
+        'gm3_point',
+      )
+    ),
+    'gm3_longitude' => array(
+      'label' => t('Geo field longitude.'),
+      'field types' => array(
+        'gm3_point',
+      )
+    ),
+  );
+}
+
+
+function theme_gm3_short_text($variables){
+  return array(
+    '#markup' => t('%longitude, %latitude', array(
+      '%longitude' => $variables['data']['longitude'],
+      '%latitude' => $variables['data']['latitude']
+    ))
+  );
+}
+
+function theme_gm3_latitude_text($variables){
+  return array(
+    '#markup' => t('%latitude', array(
+      '%latitude' => $variables['data']['latitude']
+    ))
+  );
+}
+
+function theme_gm3_longitude_text($variables){
+  return array(
+    '#markup' => t('%longitude', array(
+      '%longitude' => $variables['data']['longitude'],
+    ))
+  );
+}
+
+
+function theme_short_text($variables){
+  return theme('gm3_short_text', $variables);
+}
+
+function theme_latitude_text($variables){
+  return theme('gm3_latitude_text', $variables);
+}
+
+function theme_longitude_text($variables){
+  return theme('gm3_longitude_text', $variables);
+}
+
+
+function gm3_field_tweaks_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display){
+
+  switch($display['type']){
+    case 'gm3_short':
+    case 'gm3_latitude':
+    case 'gm3_longitude':
+      $elements = array();
+      foreach($items as $item){
+        $elements[] = theme($display['type'] . '_text', array(
+          'data' => $item
+        ));
+      }
+      return $elements;
+      break;
+  }
+}
