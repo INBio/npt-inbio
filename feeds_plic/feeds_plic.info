@@ -1,0 +1,16 @@
+name = "Feeds Plinian Core module "
+description = "Import species records in Plinian Core format"
+core = "7.x"
+
+package = AAINBio 
+project = Nodes Portal Toolkit
+
+version = "7.x-1.0"
+
+dependencies[] = "ctools"
+dependencies[] = "feeds"
+dependencies[] = "feeds"
+dependencies[] = "plinian_core"
+
+features[ctools][] = "feeds:feeds_importer_default:1"
+features[feeds_importer][] = "plinian_core_importer"

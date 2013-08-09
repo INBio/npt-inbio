@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Feeds Plinian Core feature.
+ */
+
+include_once('feeds_plic.features.inc');
