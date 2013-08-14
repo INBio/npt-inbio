@@ -115,5 +115,19 @@ function plinian_core_strongarm() {
   $strongarm->value = 1;
   $export['node_submitted_pliniancore'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'species_page_pliniancore_tab';
+  $strongarm->value = 'descriptions';
+  $export['species_page_pliniancore_tab'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'species_page_display_pliniancore';
+  $strongarm->value = 1;
+  $export['species_page_display_pliniancore'] = $strongarm;
+
   return $export;
 }

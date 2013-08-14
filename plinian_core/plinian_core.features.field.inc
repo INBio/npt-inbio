@@ -2696,6 +2696,63 @@ function plinian_core_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-pliniancore-field_taxonomic_name'
+  $fields['node-pliniancore-field_taxonomic_name'] = array(
+    'field_config' => field_info_field('field_taxonomic_name'),
+    'field_instance' => array(
+      'bundle' => 'pliniancore',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'The full name of the lowest level taxon to which the organism has been identified in the most recent accepted determination, specified as precisely as possible',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy_formatter',
+          'settings' => array(
+            'element_class' => '',
+            'element_option' => '- None -',
+            'links_option' => 1,
+            'append_vocabulary' => 1,
+            'separator_option' => ', ',
+            'wrapper_class' => '',
+            'wrapper_option' => '- None -',
+          ),
+          'type' => 'taxonomy_term_reference_csv',
+          'weight' => '1000',
+        ),
+        'linked_node' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0
+        )
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_taxonomic_name',
+      'label' => 'Taxonomic name',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '-3'
+      )
+    )
+  );
+
   trigger_error("plinian_core_field_default_fields end");
 
   // Translatables
@@ -2735,6 +2792,8 @@ function plinian_core_field_default_fields() {
   t('Threat Status');
   t('Uses');
   t('Version');
+  t('Taxonomic name');
+  t('The full name of the lowest level taxon to which the organism has been identified in the most recent accepted determination, specified as precisely as possible');
 
   return $fields;
 }
