@@ -54,7 +54,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Demography and conservation',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_plic_legislation',
       1 => 'field_plic_population_biology',
@@ -87,7 +87,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description',
-    'weight' => '7',
+    'weight' => '5',
     'children' => array(
       0 => 'field_plic_brief_description',
       1 => 'field_plic_full_description',
@@ -119,7 +119,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Documentation',
-    'weight' => '14',
+    'weight' => '7',
     'children' => array(
       0 => 'field_references',
     ),
@@ -149,7 +149,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Habitat and distribution',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_plic_distribution',
       1 => 'field_plic_endemism',
@@ -181,7 +181,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Meta',
-    'weight' => '15',
+    'weight' => '9',
     'children' => array(
       0 => 'field_plic_guid',
       1 => 'field_plic_language',
@@ -251,7 +251,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Natural History',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_plic_anual_cycle',
       1 => 'field_plic_behavior',
@@ -321,7 +321,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Uses and management',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_plic_folklore',
       1 => 'field_plic_management',
@@ -355,7 +355,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Principal',
-    'weight' => '5',
+    'weight' => '0',
     'children' => array(
       0 => 'title',
       1 => 'field_taxonomic_name',
@@ -384,7 +384,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Demography and conservation',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_plic_legislation',
       1 => 'field_plic_population_biology',
@@ -414,7 +414,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description',
-    'weight' => '7',
+    'weight' => '5',
     'children' => array(
       0 => 'field_plic_brief_description',
       1 => 'field_plic_full_description',
@@ -443,7 +443,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Documentation',
-    'weight' => '14',
+    'weight' => '7',
     'children' => array(
       0 => 'field_references',
     ),
@@ -470,7 +470,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Habitat and distribution',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_plic_distribution',
       1 => 'field_plic_endemism',
@@ -499,7 +499,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Meta',
-    'weight' => '15',
+    'weight' => '9',
     'children' => array(
       0 => 'field_plic_guid',
       1 => 'field_plic_language',
@@ -563,7 +563,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Natural History',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_plic_anual_cycle',
       1 => 'field_plic_behavior',
@@ -627,7 +627,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Uses and management',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_plic_uses',
       1 => 'field_plic_management',
@@ -657,7 +657,7 @@ function plinian_core_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Field group',
-    'weight' => '3',
+    'weight' => '-1',
     'children' => array(
       0 => 'group_plic_main',
       1 => 'group_plic_demography',

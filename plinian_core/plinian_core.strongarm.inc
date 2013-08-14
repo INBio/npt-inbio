@@ -67,9 +67,7 @@ function plinian_core_strongarm() {
     'view_modes' => array(),
     'extra_fields' => array(
       'form' => array(
-        'title' => array(
-          'weight' => '0',
-        ),
+        'title' => array(),
       ),
       'display' => array(),
     ),
