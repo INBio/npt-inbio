@@ -10,7 +10,7 @@ function species_pages_tweaks_views_default_views_alter(&$views){
   if (isset($views['species_specimen'])) {
     $view = $views['species_specimen'];
   }else{
-    trigger_error('view not found');
+    trigger_error('view not found: species_specimen');
   }
 
   $handler =& $view->display['default']->handler;
