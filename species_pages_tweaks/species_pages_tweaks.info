@@ -7,4 +7,5 @@ description = Plinian Core species records
 
 dependencies[] = "views"
 dependencies[] = "scratchpads_species"
+dependencies[] = "context"
 
