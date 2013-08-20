@@ -10,7 +10,7 @@ function specimen_pages_tweaks_views_default_views_alter(&$views){
   if (isset($views['specimen_observation_page'])) {
     $view = $views['specimen_observation_page'];
   }else{
-    trigger_error('view not found');
+    trigger_error('view not found: specimen_observation_page');
   }
 
   $handler =& $view->display['default']->handler;
