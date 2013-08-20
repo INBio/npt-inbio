@@ -1093,3 +1093,22 @@ function species_pages_tweaks_views_default_views_alter(&$views){
   );
 }
 
+
+
+function species_pages_tweaks_context_load_alter(&$context){
+
+  if ($context->name === 'species_specimens' && isset($context->reactions['block'])) {
+
+    $delta = 'species_specimen_observation-block';
+    if(strlen($delta)>32){
+      $delta = md5($delta);
+    }
+
+    $context->reactions['block']['blocks']['views-'.$delta] = array(
+      'module' => 'locale',
+      'delta' => '0',
+      'region' => 'header',
+      'weight' => '2',
+    );
+  }
+}
