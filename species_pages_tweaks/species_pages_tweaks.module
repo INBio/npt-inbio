@@ -17,6 +17,9 @@ function species_pages_tweaks_views_default_views_alter(&$views){
   // Add the user name field to the view.
   $handler->display->display_options['fields'] = NULL;
 
+  $handler->display->display_options['style_options']['forceFitColumns'] = 0;
+  $handler->display->display_options['style_options']['select_columns'] = 0;
+
   /* Relationship: Specimen/Location */
   $handler->display->display_options['relationships']['field_location_nid']['id'] = 'field_location_nid';
   $handler->display->display_options['relationships']['field_location_nid']['table'] = 'field_data_field_location';
