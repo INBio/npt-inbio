@@ -23,7 +23,6 @@ function plinian_core_ctools_plugin_api() {
  * Implements hook_node_info().
  */
 function plinian_core_node_info() {
-  trigger_error("plinian_core_node_info");
   $items = array(
     'pliniancore' => array(
       'name' => t('Plinian Core'),
