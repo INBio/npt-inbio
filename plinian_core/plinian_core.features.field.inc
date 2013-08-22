@@ -10,7 +10,6 @@
 function plinian_core_field_default_fields() {
   $fields = array();
 
-  trigger_error("plinian_core_field_default_fields begin");
 
   // Exported field: 'node-pliniancore-field_plic_author'
   $fields['node-pliniancore-field_plic_author'] = array(
@@ -2753,7 +2752,6 @@ function plinian_core_field_default_fields() {
     )
   );
 
-  trigger_error("plinian_core_field_default_fields end");
 
   // Translatables
   // Included for use with string extractors like potx.
