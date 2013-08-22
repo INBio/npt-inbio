@@ -44,6 +44,12 @@ function species_pages_tweaks_views_default_views_alter(&$views){
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['style_options']['columns']['title'] = array(
+    'width' => 120,
+    'sortable' => 1,
+    'filter' => 'textFilter'
+  );
+
 
   /* Field: Field: Taxonomic name */
   $handler->display->display_options['fields']['field_taxonomic_name']['id'] = 'field_taxonomic_name';
@@ -300,7 +306,7 @@ function species_pages_tweaks_views_default_views_alter(&$views){
   );
 
 // Full Tab for specimen_observation -------------
-  
+
     /* Field: Content: Field collector */
     $handler->display->display_options['fields']['field_collector']['id'] = 'field_collector';
     $handler->display->display_options['fields']['field_collector']['table'] = 'field_data_field_collector';
@@ -1094,16 +1100,25 @@ function species_pages_tweaks_views_default_views_alter(&$views){
 }
 
 
-
+/*
 function species_pages_tweaks_context_load_alter(&$context){
+
+  if ($context->name === 'species_specimens'){
+    unset($context);
+    return;
+  }
 
   if ($context->name === 'species_specimens' && isset($context->reactions['block'])) {
 
     $delta = 'species_specimen_observation-block';
-    if(strlen($delta)>32){
-      $delta = md5($delta);
-    }
+    $context->reactions['block']['blocks']['views-'.md5($delta)] = array(
+      'module' => 'locale',
+      'delta' => '0',
+      'region' => 'header',
+      'weight' => '2',
+    );
 
+    $delta = 'species_specimen-block';
     $context->reactions['block']['blocks']['views-'.$delta] = array(
       'module' => 'locale',
       'delta' => '0',
@@ -1112,3 +1127,9 @@ function species_pages_tweaks_context_load_alter(&$context){
     );
   }
 }
+ */
+
+function species_pages_tweaks_menu_alter(&$items){
+  dd('species_pages_tweaks_menu_alter');
+  dd($items);
+  unset($items['taxonomy/term/%taxonomy_term/specimens']); }
