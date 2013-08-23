@@ -1130,6 +1130,5 @@ function species_pages_tweaks_context_load_alter(&$context){
  */
 
 function species_pages_tweaks_menu_alter(&$items){
-  dd('species_pages_tweaks_menu_alter');
-  dd($items);
-  unset($items['taxonomy/term/%taxonomy_term/specimens']); }
+  unset($items['taxonomy/term/%taxonomy_term/specimens']);
+}
