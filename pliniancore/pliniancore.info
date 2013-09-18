@@ -1,0 +1,14 @@
+name = Plinian core
+description =  Plinian core based species record
+core = 7.x
+version = 7.x-1.0
+
+package = AAINBio 
+project = Nodes Portal Toolkit
+
+dependencies[] = "node"
+
+files[] = "pliniancore.info"
+files[] = "pliniancore.install"
+files[] = "pliniancore.module"
+files[] = "templates/pliniancore_full_view.tpl.php"
