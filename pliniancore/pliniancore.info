@@ -8,6 +8,8 @@ project = Nodes Portal Toolkit
 
 dependencies[] = "node"
 
+stylesheets[all][] = css/pliniancore.css
+
 files[] = "pliniancore.info"
 files[] = "pliniancore.install"
 files[] = "pliniancore.module"
