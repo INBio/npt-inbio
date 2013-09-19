@@ -1,16 +1,56 @@
+<style type="text/css">
+
+.pliniancore-full-view { }
+
+.pliniancore-species-record {
+    border-width: 3px;
+    border-color: #D9DADD;
+    border-style: none solid solid solid;
+ }
+
+.pliniancore-title {
+  font-family: 	'DINOT-Medium';  
+  font-style: italic;
+  font-size: 46px;
+ }
+
+.pliniancore-species-record{
+  margin: 0 30px;
+  padding: 0 5px;
+}
+
+.pliniancore-field {
+  margin: 5px 0;
+  background: #F1F4FB;
+
+  padding-top: 7px;
+  padding-bottom: 7px;
+
+  border-width: 1px;
+  border-color: #D9DADD;
+  border-style: solid solid solid solid;
+ }
+
+.pliniancore-field-title {
+  float: left;
+  width: 200px;
+  text-align: right;
+  font-weight: bold;
+  padding-right: 5px;
+ }
+
+</style>
+
+
+
 <div class="pliniancore-full-view">
 
+
+  <div class="pliniancore-title">
+    <?php print $node->scientific_name; ?>
+  </div>
+
   <div class="pliniancore-species-record">
-
-    <div class="pliniancore-scientific-name">
-      <div class="pliniancore-scientific-name-title">
-        <?php print t('Scientific Name'); ?>
-      </div>
-      <div class="pliniancore-scientific-name-content">
-        <?php print $node->scientific_name; ?>
-      </div>
-    </div>
-
     <?php if(!empty($node->institution_code)): ?>
       <div class="pliniancore-field">
         <div class="pliniancore-field-title">
@@ -36,7 +76,8 @@
     <?php if(!empty($node->taxon_record_id)): ?>
       <div class="pliniancore-field">
         <div class="pliniancore-field-title">
-          <?php print t('Taxon Record Id'); ?>
+          <?php print t('Taxon Record ID'); ?>
+        </div>
         <div class="pliniancore-field-content">
           <?php print $node->taxon_record_id; ?>
         </div>
