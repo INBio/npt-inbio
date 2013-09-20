@@ -27,7 +27,8 @@ function pliniancore_insert ($node){
 
   $result = db_insert('pliniancore')->fields(array(
     'nid' => $node->nid,
-    'scientific_name' => $node->scientific_name,
+    'title' => $node->field_taxonomic_name[$node->language][0]['name'],
+    'scientific_name' => $node->field_taxonomic_name[$node->language][0]['name'],
     'institution_code' => $node->institution_code,
     'date_last_modified' => $node->date_last_modified,
     'taxon_record_id' => $node->taxon_record_id,
@@ -81,6 +82,7 @@ function pliniancore_insert ($node){
     'target_audiences' => $node->target_audiences,
     'version' => $node->version,
   ))->execute();
+
 }
 
 /**
@@ -256,13 +258,14 @@ function pliniancore_form($node, &$form_state){
     '#maxlength' => 127,
   );
    */
-
+  /*
   $form['scientific_name'] = array(
     '#type' => 'textarea',
     '#title' => t('Scientific Name'),
     '#default_value' => $node->scientific_name,
     '#maxlength' => 255,
   );
+ */
 
   $form['institution_code'] = array(
     '#type' => 'textarea',
@@ -646,6 +649,8 @@ function pliniancore_validate ($node, $form, &$form_state){
 function pliniancore_view ($node, $view_mode){ 
   dd('pliniancore_view');
 
+  dpm($node);
+
   $node->content['view'] = array(
     '#node' => $node,
     '#theme' => 'pliniancore_full_view',
@@ -744,6 +749,7 @@ function pliniancore_node_access($node, $op, $account){
 }
 
 function pliniancore_field_default_fields(){
+  dd('pliniancore_field_default_fields');
 
   $fields = array();
 
@@ -768,7 +774,8 @@ function pliniancore_field_default_fields(){
             'wrapper_class' => '',
             'wrapper_option' => '- None -',
           ),
-          'type' => 'taxonomy_term_reference_csv',
+         # 'type' => 'taxonomy_term_reference_csv',
+          'type' => 'hidden',
           'weight' => '1000',
         ),
         'linked_node' => array(
@@ -786,7 +793,7 @@ function pliniancore_field_default_fields(){
       ),
       'entity_type' => 'node',
       'field_name' => 'field_taxonomic_name',
-      'label' => 'Taxonomic name',
+      'label' => 'Scientific name',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE

@@ -2,7 +2,10 @@
 <div class="pliniancore-full-view">
 
   <div class="pliniancore-title">
-    <?php print $node->scientific_name; ?>
+      <?php dpm($node->field_taxonomic_name[$node->language][0]['tid']); ?>
+  <a href="<?php print url( 'taxonomy/term/' . $node->field_taxonomic_name[$node->language][0]['tid'], array('absolute' => true, 'alias' => false )); ?>">
+      <?php print $node->scientific_name; ?>
+    </a>
   </div>
 
   <div class="pliniancore-species-record">

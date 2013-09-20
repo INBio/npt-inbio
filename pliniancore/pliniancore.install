@@ -24,6 +24,7 @@ function pliniancore_schema(){
         'not null' => TRUE,
         'default' => '',
       ),
+
       'institution_code' => array(
         'description' => '',
         'type' => 'varchar',
