@@ -2,12 +2,15 @@
 <div class="pliniancore-full-view">
 
   <div class="pliniancore-title">
-      <?php dpm($node->field_taxonomic_name[$node->language][0]['tid']); ?>
-  <a href="<?php print url( 'taxonomy/term/' . $node->field_taxonomic_name[$node->language][0]['tid'], array('absolute' => true, 'alias' => false )); ?>">
-      <?php print $node->scientific_name; ?>
-    </a>
+      <?php
+        foreach($node->field_taxonomic_name as $language){
+          foreach($language as $term){
+            $full_term = taxonomy_term_load($term['tid']);
+            print l(t($full_term->name), 'taxonomy/term/'.$full_term->tid );
+          }
+        }
+      ?>
   </div>
-
   <div class="pliniancore-species-record">
     <?php if(!empty($node->institution_code)): ?>
       <div class="pliniancore-field">
@@ -42,13 +45,13 @@
       </div>
     <?php endif; ?>
 
-    <?php if(!empty($node->language)): ?>
+    <?php if(!empty($node->taxon_record_language)): ?>
       <div class="pliniancore-field">
         <div class="pliniancore-field-title">
           <?php print t('Language'); ?>
         </div>
         <div class="pliniancore-field-content">
-          <?php print $node->language; ?>
+          <?php print $node->taxon_record_language; ?>
         </div>
       </div>
     <?php endif; ?>
@@ -166,7 +169,7 @@
     <?php if(!empty($node->author_year_of_scientific_name)): ?>
       <div class="pliniancore-field">
         <div class="pliniancore-field-title">
-          <?php print t('Author Year Of Scientific Name'); ?>
+          <?php print t('Scientific Name Autorship'); ?>
         </div>
         <div class="pliniancore-field-content">
           <?php print $node->author_year_of_scientific_name; ?>

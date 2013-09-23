@@ -27,12 +27,10 @@ function pliniancore_insert ($node){
 
   $result = db_insert('pliniancore')->fields(array(
     'nid' => $node->nid,
-    'title' => $node->field_taxonomic_name[$node->language][0]['name'],
-    'scientific_name' => $node->field_taxonomic_name[$node->language][0]['name'],
     'institution_code' => $node->institution_code,
     'date_last_modified' => $node->date_last_modified,
     'taxon_record_id' => $node->taxon_record_id,
-    'language' => $node->language,
+    'taxon_record_language' => $node->taxon_record_language,
     'creators' => $node->creators,
     'distribution' => $node->distribution,
     'abstract' => $node->abstract,
@@ -94,11 +92,10 @@ function pliniancore_load ($nodes){
   $result = db_query('SELECT * FROM {pliniancore} WHERE nid IN (:nids)', array(':nids' => array_keys($nodes)));
 
   foreach ($result as $record) {
-    $nodes[$record->nid]->scientific_name = $record->scientific_name;
     $nodes[$record->nid]->institution_code = $record->institution_code;
     $nodes[$record->nid]->date_last_modified = $record->date_last_modified;
     $nodes[$record->nid]->taxon_record_id = $record->taxon_record_id;
-    $nodes[$record->nid]->language = $record->language;
+    $nodes[$record->nid]->taxon_record_language = $record->taxon_record_language;
     $nodes[$record->nid]->creators = $record->creators;
     $nodes[$record->nid]->distribution = $record->distribution;
     $nodes[$record->nid]->abstract = $record->abstract;
@@ -170,11 +167,10 @@ function pliniancore_update ($node){
   dd('pliniancore_update'); 
 
   $result = db_update('pliniancore')->fields(array(
-    'scientific_name' => $node->scientific_name,
     'institution_code' => $node->institution_code,
     'date_last_modified' => $node->date_last_modified,
     'taxon_record_id' => $node->taxon_record_id,
-    'language' => $node->language,
+    'taxon_record_language' => $node->taxon_record_language,
     'creators' => $node->creators,
     'distribution' => $node->distribution,
     'abstract' => $node->abstract,
@@ -257,8 +253,6 @@ function pliniancore_form($node, &$form_state){
     '#default_value' => $node->description,
     '#maxlength' => 127,
   );
-   */
-  /*
   $form['scientific_name'] = array(
     '#type' => 'textarea',
     '#title' => t('Scientific Name'),
@@ -268,367 +262,473 @@ function pliniancore_form($node, &$form_state){
  */
 
   $form['institution_code'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Institution Code'),
     '#default_value' => $node->institution_code,
-    '#maxlength' => 4000,
+    '#maxlength' => 32,
   );
 
   $form['date_last_modified'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Date Last Modified'),
     '#default_value' => $node->date_last_modified,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['taxon_record_id'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Taxon Record ID'),
     '#default_value' => $node->taxon_record_id,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
-  $form['language'] = array(
-    '#type' => 'textarea',
+  $form['taxon_record_language'] = array(
+    '#type' => 'textfield',
     '#title' => t('Language'),
-    '#default_value' => $node->language,
-    '#maxlength' => 255,
+    '#default_value' => $node->taxon_record_language,
+    '#maxlength' => 64,
   );
 
   $form['creators'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+
     '#title' => t('Creators'),
     '#default_value' => $node->creators,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['distribution'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
     '#title' => t('Distribution'),
     '#default_value' => $node->distribution,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['abstract'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Abstract'),
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
     '#default_value' => $node->abstract,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['kingdom'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Kingdom'),
     '#default_value' => $node->kingdom,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['phylum'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Phylum'),
     '#default_value' => $node->phylum,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['class'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Class'),
     '#default_value' => $node->class,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['order'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Order'),
     '#default_value' => $node->order,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['family'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Family'),
     '#default_value' => $node->family,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['genus'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Genus'),
     '#default_value' => $node->genus,
-    '#maxlength' => 255,
+    '#maxlength' => 64,
   );
 
   $form['synonyms'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
     '#title' => t('Synonyms'),
     '#default_value' => $node->synonyms,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['author_year_of_scientific_name'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
     '#title' => t('Author Year Of Scientific Name'),
     '#default_value' => $node->author_year_of_scientific_name,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['species_publication_reference'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+
     '#title' => t('Species Publication Reference'),
     '#default_value' => $node->species_publication_reference,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['common_names'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Common Names'),
     '#default_value' => $node->common_names,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['typification'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Typification'),
     '#default_value' => $node->typification,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['global_unique_identifier'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Global Unique Identifier'),
     '#default_value' => $node->global_unique_identifier,
-    '#maxlength' => 255,
+    '#maxlength' => 256,
   );
 
   $form['contributors'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+
     '#title' => t('Contributors'),
     '#default_value' => $node->contributors,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['date_created'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Date Created'),
     '#default_value' => $node->date_created,
-    '#maxlength' => 255,
+    '#maxlength' => 128,
   );
 
   $form['habit'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+ 
     '#title' => t('Habit'),
     '#default_value' => $node->habit,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['life_cycle'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Life Cycle'),
     '#default_value' => $node->life_cycle,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['reproduction'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Reproduction'),
     '#default_value' => $node->reproduction,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['annual_cycle'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Annual Cycle'),
     '#default_value' => $node->annual_cycle,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['scientific_description'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Scientific Description'),
     '#default_value' => $node->scientific_description,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['brief_description'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Brief Description'),
     '#default_value' => $node->brief_description,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['feeding'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Feeding'),
     '#default_value' => $node->feeding,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['behavior'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Behavior'),
     '#default_value' => $node->behavior,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['interactions'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Interactions'),
     '#default_value' => $node->interactions,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['chromosomic_number_n'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Chromosomic Number N'),
     '#default_value' => $node->chromosomic_number_n,
-    '#maxlength' => 255,
+    '#maxlength' => 32,
   );
 
   $form['molecular_data'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Molecular Data'),
     '#default_value' => $node->molecular_data,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['population_biology'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Population Biology'),
     '#default_value' => $node->population_biology,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['threat_status'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Threat Status'),
     '#default_value' => $node->threat_status,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['legislation'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Legislation'),
     '#default_value' => $node->legislation,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['habitat'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Habitat'),
     '#default_value' => $node->habitat,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['territory'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Territory'),
     '#default_value' => $node->territory,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['endemicity'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Endemicity'),
     '#default_value' => $node->endemicity,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['uses'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Uses'),
     '#default_value' => $node->uses,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['management'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Management'),
     '#default_value' => $node->management,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['folklore'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Folklore'),
     '#default_value' => $node->folklore,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['references'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('References'),
     '#default_value' => $node->references,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['unstructured_documentation'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Unstructured Documentation'),
     '#default_value' => $node->unstructured_documentation,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['other_information_sources'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Other Information Sources'),
     '#default_value' => $node->other_information_sources,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['papers'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Papers'),
     '#default_value' => $node->papers,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['identification_keys'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Identification Keys'),
     '#default_value' => $node->identification_keys,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['migratory_data'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Migratory Data'),
     '#default_value' => $node->migratory_data,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['ecological_significance'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Ecological Significance'),
     '#default_value' => $node->ecological_significance,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['unstructured_natural_history'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Unstructured Natural History'),
     '#default_value' => $node->unstructured_natural_history,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['invasiveness_data'] = array(
-    '#type' => 'textarea',
+    '#base_type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'filtered_html',
+    
     '#title' => t('Invasiveness Data'),
     '#default_value' => $node->invasiveness_data,
-    '#maxlength' => 255,
+    '#maxlength' => 4096,
   );
 
   $form['target_audiences'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Target Audiences'),
     '#default_value' => $node->target_audiences,
-    '#maxlength' => 255,
+    '#maxlength' => 256,
   );
 
   $form['version'] = array(
-    '#type' => 'textarea',
+    '#type' => 'textfield',
     '#title' => t('Version'),
     '#default_value' => $node->version,
-    '#maxlength' => 255,
+    '#maxlength' => 32,
   );
 
 
@@ -648,8 +748,6 @@ function pliniancore_validate ($node, $form, &$form_state){
  */
 function pliniancore_view ($node, $view_mode){ 
   dd('pliniancore_view');
-
-  dpm($node);
 
   $node->content['view'] = array(
     '#node' => $node,
@@ -794,7 +892,7 @@ function pliniancore_field_default_fields(){
       'entity_type' => 'node',
       'field_name' => 'field_taxonomic_name',
       'label' => 'Scientific name',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE
       ),
