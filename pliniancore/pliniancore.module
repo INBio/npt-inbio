@@ -371,7 +371,7 @@ function pliniancore_form($node, &$form_state){
     '#base_type' => 'textarea',
     '#type' => 'text_format',
     '#format' => 'filtered_html',
-    '#title' => t('Author Year Of Scientific Name'),
+    '#title' => t('Scientific Name Authorship'),
     '#default_value' => $node->author_year_of_scientific_name,
     '#maxlength' => 4096,
   );
