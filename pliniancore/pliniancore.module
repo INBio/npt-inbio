@@ -861,7 +861,6 @@ function pliniancore_field_default_fields(){
             'wrapper_class' => '',
             'wrapper_option' => '- None -',
           ),
-         # 'type' => 'taxonomy_term_reference_csv',
           'type' => 'hidden',
           'weight' => '1000',
         ),
