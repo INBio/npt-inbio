@@ -1,7 +1,6 @@
 <?php
 
 function pliniancore_schema(){
-  dd('pliniancore_schema');
 
   $schema['pliniancore'] = array(
 
@@ -338,12 +337,10 @@ function pliniancore_schema(){
 
 
 function pliniancore_install() {
-  dd('pliniancore_install');
 }
 
 
 function pliniancore_uninstall() {
-  dd('pliniancore_uninstall');
 
   // Gather all the example content that might have been created while this
   // module was enabled.  Simple selects still use db_query().
@@ -361,7 +358,6 @@ function pliniancore_uninstall() {
   // http://api.drupal.org/api/function/node_type_delete/7
   node_type_delete('pliniancore');
 
-  dd('pliniancore_db_drop_table');
   db_drop_table('pliniancore');
 }
 
