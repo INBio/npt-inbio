@@ -15,7 +15,6 @@ function pliniancore_schema(){
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-
       'institution_code' => array(
         'description' => '',
         'type' => 'varchar',
