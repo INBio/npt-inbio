@@ -23,7 +23,6 @@ function pliniancore_node_info() {
  * insert all the fields of the form in the table pliniancore
  */
 function pliniancore_insert ($node){ 
-  dd('pliniancore_insert'); 
 
   $result = db_insert('pliniancore')->fields(array(
     'nid' => $node->nid,
@@ -87,7 +86,6 @@ function pliniancore_insert ($node){
  * Implement hook_load from the node.api
  */
 function pliniancore_load ($nodes){ 
-  dd('pliniancore_load'); 
 
   $result = db_query('SELECT * FROM {pliniancore} WHERE nid IN (:nids)', array(':nids' => array_keys($nodes)));
 
@@ -230,8 +228,6 @@ function pliniancore_update ($node){
  * Implement hook_form()
  */
 function pliniancore_form($node, &$form_state){ 
-
-  dd('pliniancore_form');
 
   $type = node_type_get_type($node);
 
@@ -740,14 +736,12 @@ function pliniancore_form($node, &$form_state){
  * TODO: Implement this. :D jojojo... merry cristhmas
  */
 function pliniancore_validate ($node, $form, &$form_state){
-  dd('pliniancore_validate'); 
 }
 
 /**
  * Implement hook_view from the node.api
  */
 function pliniancore_view ($node, $view_mode){ 
-  dd('pliniancore_view');
 
   $node->content['view'] = array(
     '#node' => $node,
@@ -780,7 +774,6 @@ function pliniancore_theme(){
  * to allow users to edit the nodes they created.
  */
 function pliniancore_permission() {
-  dd('pliniancore_permission'); 
 
   return array(
     'administer pliniancore' => array(
@@ -842,12 +835,13 @@ function pliniancore_permission() {
  * Implement hook_node_access from the node.api
  */
 function pliniancore_node_access($node, $op, $account){
-  dd('pliniancore_node_access '); 
   return NODE_ACCESS_ALLOW;
 }
 
+/**
+ * Implements hook_field_default_fields().
+ */
 function pliniancore_field_default_fields(){
-  dd('pliniancore_field_default_fields');
 
   $fields = array();
 
