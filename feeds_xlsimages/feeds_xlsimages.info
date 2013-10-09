@@ -8,6 +8,5 @@ project = Nodes Portal Toolkit
 
 dependencies[] = feeds
 dependencies[] = libraries
-dependencies[] = darwincore
 
 features[ctools][] = "feeds:feeds_importer_default:1"
