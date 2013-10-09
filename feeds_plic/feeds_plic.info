@@ -10,7 +10,7 @@ version = "7.x-1.0"
 dependencies[] = "ctools"
 dependencies[] = "feeds"
 dependencies[] = "feeds"
-dependencies[] = "plinian_core"
+dependencies[] = "pliniancore"
 
 features[ctools][] = "feeds:feeds_importer_default:1"
 features[feeds_importer][] = "plinian_core_importer"
