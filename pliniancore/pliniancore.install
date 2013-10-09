@@ -335,10 +335,19 @@ function pliniancore_schema(){
 
 
 
+/**
+ * Implements hook_install()
+ */
 function pliniancore_install() {
+  variable_set('node_submitted_pliniancore', 1); 
+  variable_set('species_page_pliniancore_tab', 'descriptions');
+  variable_set('species_page_display_pliniancore', 1);
 }
 
 
+/**
+ * Implements hook_uninstall()
+ */
 function pliniancore_uninstall() {
 
   // Gather all the example content that might have been created while this
@@ -358,6 +367,11 @@ function pliniancore_uninstall() {
   node_type_delete('pliniancore');
 
   db_drop_table('pliniancore');
+
+  // Delete all the installed variables
+  variable_del('node_submitted_pliniancore'); 
+  variable_del('species_page_pliniancore_tab');
+  variable_del('species_page_display_pliniancore');
 }
 
 
