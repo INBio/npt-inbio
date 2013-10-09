@@ -1,0 +1,13 @@
+name = Feeds DwC-A Plugins module
+description = DwC-A file parser for importing Darwin Core archive data via feeds.module
+core = 7.x
+version = 7.x-1.0
+
+package = AAINBio 
+project = Nodes Portal Toolkit
+
+dependencies[] = feeds
+dependencies[] = libraries
+dependencies[] = darwincore
+
+features[ctools][] = "feeds:feeds_importer_default:1"
