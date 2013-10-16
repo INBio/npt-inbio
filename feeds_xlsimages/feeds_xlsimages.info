@@ -8,5 +8,9 @@ project = Nodes Portal Toolkit
 
 dependencies[] = feeds
 dependencies[] = libraries
+dependencies[] = feeds_file_processor
+dependencies[] = image
+dependencies[] = file_entity
+dependencies[] = feeds_file_processor
 
 features[ctools][] = "feeds:feeds_importer_default:1"
