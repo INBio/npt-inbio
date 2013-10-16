@@ -14,7 +14,7 @@ function feeds_xlsimages_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
-  $feeds_importer->id = 'feeds_xlsimages_specimen_observation_importer';
+  $feeds_importer->id = 'feeds_xlsimages_importer';
   $feeds_importer->config = array(
     'name' => 'Feeds Remote Images Importer',
     'description' => 'Import images from a remote location',
@@ -37,6 +37,7 @@ function feeds_xlsimages_feeds_importer_default() {
       'plugin_key' => 'RemoteImageProcessor',
       'config' => array(
         'content_type' => 'image',
+        'bundle' => 'image',
         'expire' => -1,
         'author' => 0,
         'mappings' => array(
