@@ -847,7 +847,6 @@ class DwCAParser extends FeedsParser{
    */
   public function parse(FeedsSource $source, FeedsFetcherResult $fetcher_result){
     // Increase the memory limit
-    ini_set('memory_limit', '1024M');
 
     // Get config and current state
     $source_config = $source->getConfigFor($this);
@@ -862,12 +861,12 @@ class DwCAParser extends FeedsParser{
     $dwca->open();
 
     // Determine section to parse, parse.
-    $start = $this->state->pointer ? $this->state->pointer : $dwca->parser->lastLinePos();
+    $start_byte = $this->state->pointer ? $this->state->pointer : $dwca->parser->lastLinePos();
+    $dwca->parser->setStartByte($start_byte);
 
     $limit = $source->importer->getLimit();
-    print $limit;
 
-    $rows = $dwca->get_records($start, $limit);
+    $rows = $dwca->get_records($limit);
     // --------------------------------- //
 
     // Report progress.
