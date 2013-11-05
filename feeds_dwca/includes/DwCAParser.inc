@@ -864,7 +864,8 @@ class DwCAParser extends FeedsParser{
     $start_byte = $this->state->pointer ? $this->state->pointer : $dwca->parser->lastLinePos();
     $dwca->parser->setStartByte($start_byte);
 
-    $limit = $source->importer->getLimit();
+    #$limit = $source->importer->getLimit();
+    $limit = 1000;
 
     $rows = $dwca->get_records($limit);
     // --------------------------------- //
