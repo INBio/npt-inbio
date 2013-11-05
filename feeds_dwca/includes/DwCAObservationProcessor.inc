@@ -337,6 +337,19 @@ class DwCAObservationProcessor extends FeedsProcessor {
     // get the current state (this is to update the progress bar).
     $state = $source->state(FEEDS_PROCESS);
 
+    //make the processor use transaction 
+    //TODO: make sure this is working correctly
+    $transaction = db_transaction();
+
+    /* FIXME: put the method in a try catch to enable the rollbacks
+    try {
+    }
+    catch (Exception $e) {
+      $transaction->rollback();
+      watchdog_exception('DwC-A', $e);
+    }
+     */
+
     // Run over all the results
     while ($item = $parser_result->shiftItem()) {
 
