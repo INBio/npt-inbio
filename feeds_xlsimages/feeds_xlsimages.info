@@ -1,5 +1,5 @@
-name = Feeds DwC-A Plugins module
-description = DwC-A file parser for importing Darwin Core archive data via feeds.module
+name = Feeds XLS images immporter
+description = Import images in batch by using the feeds module
 core = 7.x
 version = 7.x-1.0
 
