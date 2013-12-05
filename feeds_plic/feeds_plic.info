@@ -1,8 +1,8 @@
-name = "Feeds Plinian Core module "
-description = "Import species records in Plinian Core format"
+name = "Feeds Plinian Core"
+description = "Create a feeds importer to add Species information to the site. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Feeds-PliC">See documentation</a>."
 core = "7.x"
 
-package = AAINBio 
+package = INBio 
 project = Nodes Portal Toolkit
 
 version = "7.x-1.0"
