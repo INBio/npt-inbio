@@ -3,5 +3,5 @@ npt-inbio
 
 Temporal Repository for NPT-INBio Modules
 
-This modules will later be integrated to the https://github.com/gbif-participants/gbif-npt-startup repository
+This modules are incorporated in the NPT Startup code repository ( https://github.com/gbif-participants/gbif-npt-startup)  as a submodule ()
 
