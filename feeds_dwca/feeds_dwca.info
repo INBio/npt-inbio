@@ -1,9 +1,10 @@
-name = Feeds DwC-A Plugins module
-description = DwC-A file parser for importing Darwin Core archive data via feeds.module
+name = Feeds DwC-A
+description = Provide importers to add Specimen information to the site. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Feeds-DwC-A-module">See documentation</a>.
+
 core = 7.x
 version = 7.x-1.0
 
-package = AAINBio 
+package = INBio 
 project = Nodes Portal Toolkit
 
 dependencies[] = feeds
