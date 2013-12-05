@@ -2,7 +2,7 @@ package = INBio
 project = Nodes Portal Toolkit
 
 name = species_pages_tweaks
-description = Change the columns in the Specimen/observation table for the Biodiversity data section.<a href="https://github.com/Sufrostico/npt-inbio/wiki/Species-Pages-Tweaks">See documentation</a>.
+description = Change the columns in the Specimen/observation table for the Biodiversity data section.<a href="https://github.com/INBio/npt-inbio/wiki/Species-Pages-Tweaks">See documentation</a>.
 
 core = "7.x"
 
