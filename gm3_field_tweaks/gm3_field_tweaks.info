@@ -1,9 +1,10 @@
-core = "7.x"
-version = "7.x-1.0"
+package = INBio 
+project = Nodes Portal Toolkit
 
-package = AAINBio
 name = gm3_field_tweaks
-description = Plinian Core species records
+description = Add formatters for the gm3_field field. <a href="https://github.com/Sufrostico/npt-inbio/wiki/GM3-Field-tweaks">See documentation</a>.
+
+core = "7.x"
 
 dependencies[] = "views"
 dependencies[] = "gm3_field"

@@ -1,11 +1,10 @@
-name = "Feeds Plinian Core"
-description = "Create a feeds importer to add Species information to the site. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Feeds-PliC">See documentation</a>."
-core = "7.x"
-
 package = INBio 
 project = Nodes Portal Toolkit
 
-version = "7.x-1.0"
+name = "Feeds Plinian Core"
+description = "Create a feeds importer to add Species information to the site. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Feeds-PliC">See documentation</a>."
+
+core = "7.x"
 
 dependencies[] = "ctools"
 dependencies[] = "feeds"

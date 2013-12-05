@@ -1,11 +1,10 @@
+package = INBio 
+project = Nodes Portal Toolkit
+
 name = Feeds DwC-A
 description = Provide importers to add Specimen information to the site. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Feeds-DwC-A">See documentation</a>.
 
 core = 7.x
-version = 7.x-1.0
-
-package = INBio 
-project = Nodes Portal Toolkit
 
 dependencies[] = feeds
 dependencies[] = libraries
