@@ -2,7 +2,7 @@ package = INBio
 project = Nodes Portal Toolkit
 
 name = GBIF Sync 
-description = Download Occurrences information from GBIF and add it to the site.  <a href="https://github.com/Sufrostico/npt-inbio/wiki/GBIF-Sync">See documentation</a>.
+description = Download Occurrences information from GBIF and add it to the site.  <a href="https://github.com/INBio/npt-inbio/wiki/GBIF-Sync">See documentation</a>.
 
 core = "7.x"
 

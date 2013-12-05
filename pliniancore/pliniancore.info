@@ -2,7 +2,7 @@ package = INBio
 project = Nodes Portal Toolkit
 
 name = Plinian Core
-description =  Add a content-type to store Species description in Plinian Core format. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Plinian-Core">See documentation</a>.
+description =  Add a content-type to store Species description in Plinian Core format. <a href="https://github.com/INBio/npt-inbio/wiki/Plinian-Core">See documentation</a>.
 
 core = 7.x
 
