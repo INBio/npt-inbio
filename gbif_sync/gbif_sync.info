@@ -1,9 +1,9 @@
 core = "7.x"
 version = "7.x-1.0"
 
-package = AAINBio
+package = INBio
 name = GBIF Sync 
-description = Download specific information from GBIF and put in the Drupal database via feeds_dwca.module
+description = Download Occurrences information from GBIF and add it to the site.  <a href="https://github.com/Sufrostico/npt-inbio/wiki/GBIF-Sync">See documentation</a>.
 
 dependencies[] = feeds
 dependencies[] = feeds_dwca
