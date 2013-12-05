@@ -25,6 +25,7 @@ define('DATA_PORTAL_URL', 'http://data.gbif.org/ws/rest/occurrence');
 function get_occurrence_count( $country_code = 'cr'){
 
     $url = DATA_PORTAL_URL.'/count?'."&originisocountrycode=$country_code";
+    // FIXME: in this fucntion the process have to wait for the download of the data.
     $info = file_get_contents($url);
 
     $xml_string = clean_gbif_xml($info);
