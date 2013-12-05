@@ -1,9 +1,10 @@
-core = "7.x"
-version = "7.x-1.0"
+package = INBio 
+project = Nodes Portal Toolkit
 
-package = AAINBio
 name = species_pages_tweaks
-description = Plinian Core species records
+description = Change the columns in the Specimen/observation table for the Biodiversity data section.<a href="https://github.com/Sufrostico/npt-inbio/wiki/Species-Pages-Tweaks">See documentation</a>.
+
+core = "7.x"
 
 dependencies[] = "views"
 dependencies[] = "scratchpads_species"
