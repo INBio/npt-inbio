@@ -8,7 +8,7 @@ function gbif_sync_cron(){
   $message = 'Testing the cron hook';
   watchdog($type, $message);
 
-  #$zip_filename = __download_records();
+  $zip_filename = __download_records();
 
   #__process_records($zip_filename);
   __process_records();
