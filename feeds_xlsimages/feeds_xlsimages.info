@@ -1,9 +1,9 @@
 name = Feeds XLS images immporter
-description = Import images in batch by using the feeds module
+description = Creates an importe to add images in batch by using a xls template. <a href="https://github.com/Sufrostico/npt-inbio/wiki/Feeds-XLS-Images">See documentation</a>. 
 core = 7.x
 version = 7.x-1.0
 
-package = AAINBio 
+package = INBio 
 project = Nodes Portal Toolkit
 
 dependencies[] = feeds
