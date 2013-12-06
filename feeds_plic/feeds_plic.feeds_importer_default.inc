@@ -2,10 +2,17 @@
 /**
  * @file
  * feeds_plic.feeds_importer_default.inc
+ *
+ * Add the configuration of the 
+ *     - 'Plinian Core Importer'
+ *         (pliniancore_importer)
  */
 
 /**
  * Implements hook_feeds_importer_default().
+ *
+ * To add the default configuration of the pliniancore_importer
+ *
  */
 function feeds_plic_feeds_importer_default() {
   $export = array();
