@@ -1,8 +1,20 @@
 <?php
+/**
+ * @field 
+ * specimen_pages_tweaks.module
+ *
+ * Define a new structure of field for the species_specimen view.
+ */
 
 /**
  * implementation of hook_views_default_views().
+ *
+ * To change the view specimen_observation_page defined by the scratchpads_pages module.
+ *
+ * This view has two tabs (brief and full), unfortunately the columns of the 
+ * brief column are not shown in the full tab. (FIXME)
  */
+
 function specimen_pages_tweaks_views_default_views_alter(&$views){
 
   $view = NULL;
