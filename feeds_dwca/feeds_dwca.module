@@ -4,6 +4,11 @@ include_once ('feeds_dwca.features.inc');
 
 /**
  * Implementation of hook_feeds_plugins().
+ *
+ * Include in the path the tools that are necesary to get the 
+ * importers working.
+ *
+ * That is the DwCAParser, DwCALocationProcessor and DwCAObservationProcessor
  */
 function feeds_dwca_feeds_plugins() {
   $info = array();
@@ -41,6 +46,9 @@ function feeds_dwca_feeds_plugins() {
   return $info;
 }
 
+/**
+ * Implementation of hook_enable()
+ */
 function feeds_dwca_enable() {
   //clear the cache to display in Feeds as available plugin.
   cache_clear_all('plugins:feeds:plugins', 'cache');

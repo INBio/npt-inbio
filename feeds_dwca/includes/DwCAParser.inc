@@ -1,12 +1,21 @@
 <?php
 
+
 /**
- * Parses a given file as a DwC-A file.
+ * @file
+ * Class definition of DwCAParser
+ */
+
+/**
+ * Extends FeedsParser to parse DWC-A files with the aid of the DwC-A PHP library
+ * from https://github.com/INBio/DwC-A-PHP-Library
  */
 class DwCAParser extends FeedsParser{
 
   /**
    * Overrides FeedsParser::getMappingSources()
+   *
+   * Mappings come from the occurrence extension in the IPT from GBIF
    */
   public function getMappingSources() {
 
@@ -843,7 +852,9 @@ class DwCAParser extends FeedsParser{
 
   /**
    * Parse the DwC-A file and create data data resource to store the
-   * occurrence.txt information
+   * information from the occurrence.txt
+   *
+   * Extensions are ignored.
    */
   public function parse(FeedsSource $source, FeedsFetcherResult $fetcher_result){
     // Increase the memory limit
@@ -864,11 +875,16 @@ class DwCAParser extends FeedsParser{
     $start_byte = $this->state->pointer ? $this->state->pointer : $dwca->parser->lastLinePos();
     $dwca->parser->setStartByte($start_byte);
 
-    #$limit = $source->importer->getLimit();
+    /*
+     * Set the amount of records to process at once to 1000.
+     *
+     * You can use the importer's configuration by changing the code 
+     * to: $limit = $source->importer->getLimit();
+     * which usually has a default of 50.
+     */
     $limit = 1000;
 
     $rows = $dwca->get_records($limit);
-    // --------------------------------- //
 
     // Report progress.
     $this->state->total = filesize($dwca->meta->core->files[0]);

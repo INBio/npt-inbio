@@ -2,10 +2,19 @@
 /**
  * @file
  * feeds_dwca_specimen_observation_importer.feeds_importer_default.inc
+ *
+ * Sets the configuration of both importers:
+ *    - 'Feeds DwC-A Obsevarion/Specimen Importer' 
+ *          (feeds_dwca_specimen_observation_importer)
+ *
+ *    - 'Feeds DwC-A Location Importer' 
+ *          (feeds_dwca_location_importer)
  */
 
 /**
  * Implements hook_feeds_importer_default().
+ *
+ * To add the default configuration of the importers. 
  */
 function feeds_dwca_feeds_importer_default() {
   $export = array();
