@@ -2,10 +2,17 @@
 /**
  * @file
  * feeds_xlsimages_specimen_observation_importer.feeds_importer_default.inc
+ *
+ * Register an importer to work with remote images in batch.
+ *    - 'Feeds Remote Images Importer
+ *        (feeds_xlsimages_importer)
  */
 
 /**
  * Implements hook_feeds_importer_default().
+ *
+ * To register the feeds_xlsimages_importer and work with remote images
+ * in batch.
  */
 function feeds_xlsimages_feeds_importer_default() {
   $export = array();

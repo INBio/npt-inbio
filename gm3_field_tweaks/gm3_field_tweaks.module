@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * @file
+ * gm3_field_tweaks.module
+ *
+ * Implements the hooks for a couple of formatters to be added to the
+ *  gm3_field module
+ */
+
+
+/**
+ * Implements hook_theme
+ *
+ * To add some text formatters for latitude and longitude
+ */
 function gm3_field_tweaks_theme(){
   return Array(
     'gm3_short_text' => array(
@@ -36,6 +50,12 @@ function gm3_field_tweaks_theme(){
 }
 
 
+/**
+ * Implementation of hook_field_widget_info
+ *
+ * To Add the definitions of the text formatters for the
+ * widget of the field.
+ */
 function gm3_field_tweaks_field_widget_info(){
   return array(
     'gm3_short_text' => array(
@@ -62,6 +82,12 @@ function gm3_field_tweaks_field_widget_info(){
   );
 }
 
+/**
+ * Implementation of the hook_field_formatter_info
+ * 
+ * To add the definitions of the text formatters for the 
+ * field.
+ */
 function gm3_field_tweaks_field_formatter_info(){
   return array(
     'gm3_short' => array(
@@ -86,6 +112,12 @@ function gm3_field_tweaks_field_formatter_info(){
 }
 
 
+/**
+ * Implement the function to be called by the definitiosn added
+ * in the hook_theme implementation of this module.
+ *
+ * Add the markup for the gm3_short_text formatter
+ */
 function theme_gm3_short_text($variables){
   return array(
     '#markup' => t('%longitude, %latitude', array(
@@ -95,6 +127,12 @@ function theme_gm3_short_text($variables){
   );
 }
 
+/**
+ * Implement the function to be called by the definitiosn added
+ * in the hook_theme implementation of this module.
+ *
+ * Add the markup for the gm3_latitude_text formatter
+ */
 function theme_gm3_latitude_text($variables){
   return array(
     '#markup' => t('%latitude', array(
@@ -103,6 +141,12 @@ function theme_gm3_latitude_text($variables){
   );
 }
 
+/**
+ * Implement the function to be called by the definitiosn added
+ * in the hook_theme implementation of this module.
+ *
+ * Add the markup for the gm3_longitude_text formatter
+ */
 function theme_gm3_longitude_text($variables){
   return array(
     '#markup' => t('%longitude', array(
@@ -112,19 +156,41 @@ function theme_gm3_longitude_text($variables){
 }
 
 
+/**
+ * Implement the function to be called by the definitiosn added
+ * in the hook_theme implementation of this module.
+ *
+ * Add the markup for the short_text formatter
+ */
 function theme_short_text($variables){
   return theme('gm3_short_text', $variables);
 }
 
+/**
+ * Implement the function to be called by the definitiosn added
+ * in the hook_theme implementation of this module.
+ *
+ * Add the markup for the latitude_text formatter
+ */
 function theme_latitude_text($variables){
   return theme('gm3_latitude_text', $variables);
 }
 
+/**
+ * Implement the function to be called by the definitiosn added
+ * in the hook_theme implementation of this module.
+ *
+ * Add the markup for the longitude_text formatter
+ */
 function theme_longitude_text($variables){
   return theme('gm3_longitude_text', $variables);
 }
 
-
+/**
+ * Implementation of the hook_field_formatter_info.
+ *
+ * To glue all the previous hooks in this file together
+ */
 function gm3_field_tweaks_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display){
 
   switch($display['type']){

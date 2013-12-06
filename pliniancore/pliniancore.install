@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * @file
+ * pliniancore.install
+ *
+ * Creates the schema to support the pliniancore content type.
+ */
+
+/**
+ * Implemenation of the hook_schema
+ *
+ * To create the table that is going to store most of the fields 
+ * of the pliniancore content type.
+ *
+ * Based in PliC 2.3
+ */
 function pliniancore_schema(){
 
   $schema['pliniancore'] = array(
@@ -337,16 +352,29 @@ function pliniancore_schema(){
 
 /**
  * Implements hook_install()
+ *
+ * To set the following variables:
+ *    - node_submitted_pliniancore: not sure :S FIXME
+ *    - species_page_pliniancore_tab: to indicate in which page of the species
+ *        overview y going to be displayed.
+ *    - species_page_display_pliniancore: to show the records in its own page
+ *        on the principal menu.
+ *
  */
 function pliniancore_install() {
   variable_set('node_submitted_pliniancore', 1); 
   variable_set('species_page_pliniancore_tab', 'descriptions');
-  variable_set('species_page_display_pliniancore', 1);
+  variable_set('species_page_display_pliniancore', 0);
 }
 
 
 /**
  * Implements hook_uninstall()
+ *
+ * To delete the pliniancore records, the schema and the variables
+ *
+ * (if the variables are not deleted can become a debugging nightmare, 
+ *  trust me on this one).
  */
 function pliniancore_uninstall() {
 

@@ -1,7 +1,19 @@
 <?php
 
 /**
+ * @field 
+ * species_pages_tweaks.module
+ *
+ * Define a new structure of field for the species_specimen view.
+ */
+
+/**
  * implementation of hook_views_default_views().
+ *
+ * To change the view species_specimen defined by the scratchpads_species module.
+ *
+ * This view has two tabs (brief and full), unfortunately the columns of the 
+ * brief column are not shown in the full tab. (FIXME)
  */
 function species_pages_tweaks_views_default_views_alter(&$views){
 
@@ -493,7 +505,7 @@ function species_pages_tweaks_views_default_views_alter(&$views){
     $handler->display->display_options['fields']['field_genbank_number']['alter']['make_link'] = 0;
     $handler->display->display_options['fields']['field_genbank_number']['alter']['absolute'] = 0;
     $handler->display->display_options['fields']['field_genbank_number']['alter']['external'] = 0;
-    $handler->display->display_options['fields']['field_genbank_number']['alter']['replace_spaces'] = 0;
+    $handler->display->display_optiounfortunalyns['fields']['field_genbank_number']['alter']['replace_spaces'] = 0;
     $handler->display->display_options['fields']['field_genbank_number']['alter']['trim_whitespace'] = 0;
     $handler->display->display_options['fields']['field_genbank_number']['alter']['nl2br'] = 0;
     $handler->display->display_options['fields']['field_genbank_number']['alter']['word_boundary'] = 1;
@@ -1100,35 +1112,9 @@ function species_pages_tweaks_views_default_views_alter(&$views){
 }
 
 
-/*
-function species_pages_tweaks_context_load_alter(&$context){
-
-  if ($context->name === 'species_specimens'){
-    unset($context);
-    return;
-  }
-
-  if ($context->name === 'species_specimens' && isset($context->reactions['block'])) {
-
-    $delta = 'species_specimen_observation-block';
-    $context->reactions['block']['blocks']['views-'.md5($delta)] = array(
-      'module' => 'locale',
-      'delta' => '0',
-      'region' => 'header',
-      'weight' => '2',
-    );
-
-    $delta = 'species_specimen-block';
-    $context->reactions['block']['blocks']['views-'.$delta] = array(
-      'module' => 'locale',
-      'delta' => '0',
-      'region' => 'header',
-      'weight' => '2',
-    );
-  }
-}
+/**
+ * Implementation of the hook hook_menu_alter
  */
-
 function species_pages_tweaks_menu_alter(&$items){
   unset($items['taxonomy/term/%taxonomy_term/specimens']);
 }

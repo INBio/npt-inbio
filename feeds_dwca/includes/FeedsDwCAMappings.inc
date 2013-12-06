@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * @file
+ * Class definition of FeedsDwCAMappings
+ *
+ * Sets the default of the mappings to use in this the 
+ * feeds_dwca module for both importers (for location and specimen/observation
+ * content types)
+ */
+
+
 class FeedsDwCAMappings {
 
 

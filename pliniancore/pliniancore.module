@@ -1,12 +1,21 @@
 <?php
 
 /**
+ * @file
+ * pliniancore.module
+ *
+ * Implement the hooks to create a new content type.
+ */
+
+/**
  * Implements hook_node_info().
+ *
+ * To define the name and the machine name of the new content-type.
  */
 function pliniancore_node_info() {
   $items = array(
     'pliniancore' => array(
-      'name' => t('A Plinian core'),
+      'name' => t('Plinian Core'),
       'base' => 'pliniancore',
       'description' => t('Plinian core 2.3 based species records'),
       'has_title' => '1',
@@ -20,7 +29,7 @@ function pliniancore_node_info() {
 /**
  * Implement hook_insert from the node.api
  *
- * insert all the fields of the form in the table pliniancore
+ * To overrite the default insert procedure and put it directly in the pliniancore table.
  */
 function pliniancore_insert ($node){ 
 
@@ -84,6 +93,9 @@ function pliniancore_insert ($node){
 
 /**
  * Implement hook_load from the node.api
+ *
+ * To overrite the default load, and bring a register from the table 
+ * pliniancore.
  */
 function pliniancore_load ($nodes){ 
 
@@ -147,6 +159,8 @@ function pliniancore_load ($nodes){
 
 /**
  * Implement hook_delete from the node.api
+ *
+ * To delete an specific pliniancore record.
  */
 function pliniancore_delete ($node){
 
@@ -158,6 +172,8 @@ function pliniancore_delete ($node){
 
 /**
  * Implement hook_update from the node.api
+ *
+ * To update an instance of the pliniancore content-type
  */
 function pliniancore_update ($node){ 
 
@@ -222,36 +238,16 @@ function pliniancore_update ($node){
 
 /**
  * Implement hook_form()
+ *
+ * To custom define the fields and the order in the pliniancore
+ * content-type edition form.
+ *
+ * The field scientific_name is not appearing here because is added
+ * automaticly by the field module and not by hand.
  */
 function pliniancore_form($node, &$form_state){ 
 
   $type = node_type_get_type($node);
-
-  /*
-  $form['title'] = array(
-    '#type' => 'textfield',
-    '#title' => check_plain($type->title_label),
-    '#default_value' => !empty($node->title) ? $node->title : '',
-    '#required' => TRUE,
-    '#weight' => -5,
-  );
-
-  $form['description'] = array(
-    '#base_type' => 'textarea',
-    '#type' => 'text_format',
-    '#format' => 'filtered_html',
-
-    '#title' => t('description'),
-    '#default_value' => $node->description,
-    '#maxlength' => 127,
-  );
-  $form['scientific_name'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Scientific Name'),
-    '#default_value' => $node->scientific_name,
-    '#maxlength' => 255,
-  );
- */
 
   $form['institution_code'] = array(
     '#type' => 'textfield',
@@ -727,13 +723,16 @@ function pliniancore_form($node, &$form_state){
 
 /**
  * implement hook_validate from the node.api
- * TODO: Implement this. :D jojojo... merry cristhmas
+ * TODO: make validations on this point.
  */
 function pliniancore_validate ($node, $form, &$form_state){
 }
 
 /**
  * Implement hook_view from the node.api
+ *
+ * To define the view for the pliniancore records
+ * this one is implemented using a theme (php template).
  */
 function pliniancore_view ($node, $view_mode){ 
 
@@ -748,12 +747,15 @@ function pliniancore_view ($node, $view_mode){
 
 /*
  * Implements hook_theme
+ *
+ * To tell drupal that the pliniancore content-type is goint to be 
+ * implemented by the  pliniancore_full_view template.
  */ 
 function pliniancore_theme(){
   $ar = array(
     'pliniancore_full_view' => array(            
       'template' => 'templates/pliniancore_full_view',
-      'variables' => array('node' => null, 'title' => t('ConteT Type Test')),      
+      'variables' => array('node' => null, 'title' => t('Plinian Core view')),      
     ),      
   );   
   return $ar;
@@ -766,32 +768,35 @@ function pliniancore_theme(){
  * Since we are limiting the ability to create new nodes to certain users,
  * we need to define what those permissions are here. We also define a permission
  * to allow users to edit the nodes they created.
+ *
+ * TODO: Some of this permissions are not strictly necesary so the list can be
+ * reduced.
  */
 function pliniancore_permission() {
 
   return array(
     'administer pliniancore' => array(
-      'title' => t('Administer Cttt'),
-      'description' => t('Allows full control (create, update, delete) of all Cttt nodes'),
+      'title' => t('Administer pliniancore'),
+      'description' => t('Allows full control (create, update, delete) of all pliniancore nodes'),
     ),
     'access pliniancore content' => array(
-      'title' => t('Access Cttt content'),
-      'description' => t('Allows the user to view Cttt nodes'),
+      'title' => t('Access pliniancore content'),
+      'description' => t('Allows the user to view pliniancore nodes'),
     ),
     'create pliniancore' => array(
-      'title' => t('Create Cttt'),
-      'description' => t('Allows the user to create new Cttt nodes'),
+      'title' => t('Create pliniancore'),
+      'description' => t('Allows the user to create new pliniancore nodes'),
     ),
     'edit all pliniancore entries' => array(
-      'title' => t('Edit all Cttt entries'),
+      'title' => t('Edit all pliniancore entries'),
       'description' => t('Allows the user to edit ALL pliniancore entries regardless of who "owns" them, otherwise they are restricted to on'),
     ),
     'edit by all pliniancore authors' => array(
-      'title' => t('Edit by all Cttt authors'),
-      'description' => t('Allows any/all of the authors associated with a pliniancore entry to edit the pliniancore entry. This requires the Drupal UserID be mapped to a Cttt author ID'),
+      'title' => t('Edit by all pliniancore authors'),
+      'description' => t('Allows any/all of the authors associated with a pliniancore entry to edit the pliniancore entry. This requires the Drupal UserID be mapped to a pliniancore author ID'),
     ),
     'edit pliniancore authors' => array(
-      'title' => t('Edit Cttt authors'),
+      'title' => t('Edit pliniancore authors'),
       'description' => t('Allows the user to edit author information'),
     ),
     'import from file' => array(
@@ -804,7 +809,7 @@ function pliniancore_permission() {
     ),
     'show download links' => array(
       'title' => t('Show download links'),
-      'description' => t('Allows users to see links to any attachements associated with the Cttt entry'),
+      'description' => t('Allows users to see links to any attachements associated with the pliniancore entry'),
     ),
     'show own download links' => array(
       'title' => t('Show own download links'),
@@ -812,11 +817,11 @@ function pliniancore_permission() {
     ),
     'show filter tab' => array(
       'title' => t('Show filter tab'),
-      'description' => t('This determines if the "Filter" tab on the Cttt list page will be shown to the user'),
+      'description' => t('This determines if the "Filter" tab on the pliniancore list page will be shown to the user'),
     ),
     'show sort links' => array(
       'title' => t('Show sort links'),
-      'description' => t('This determines if the "Sort" links on the Cttt list page will be shown to the user'),
+      'description' => t('This determines if the "Sort" links on the pliniancore list page will be shown to the user'),
     ),
     'view full text' => array(
       'title' => t('Show full text'),
@@ -827,6 +832,8 @@ function pliniancore_permission() {
 
 /**
  * Implement hook_node_access from the node.api
+ *
+ * Allwais allow.
  */
 function pliniancore_node_access($node, $op, $account){
   return NODE_ACCESS_ALLOW;
@@ -834,6 +841,11 @@ function pliniancore_node_access($node, $op, $account){
 
 /**
  * Implements hook_field_default_fields().
+ *
+ * To add the "scientific name" to the list of field.
+ *
+ * This is made by re-using the field 'taxonomic_name' created by
+ * the module scratchpads_taxonomic_name_field
  */
 function pliniancore_field_default_fields(){
 

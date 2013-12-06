@@ -2,6 +2,21 @@
 
 include_once('includes/gbif-portal.php');
 
+/**
+ * @file
+ * gbif_sync.module 
+ *
+ * Sets the necesary steps to download, process and import
+ * DwC-A records straight from the GBIF portal by using its webservices
+ */
+
+/**
+ * Implementation of hook_cron
+ *
+ * To download, process and import DwC-A records from the GBIF data 
+ * portal by using the feeds_dwca_location_importer and the 
+ * feeds_dwca_specimen_observation_importer
+ */
 function gbif_sync_cron(){
 
   $type = 'GBIF Sync'; 
@@ -10,13 +25,16 @@ function gbif_sync_cron(){
 
   $zip_filename = __download_records();
 
-  #__process_records($zip_filename);
   __process_records();
 
   __send_happy_message();
 
 }
 
+/**
+ * Download records from the GBIF central index and prepare a DwC-A 
+ * with those records to import them into the site.
+ */
 function __download_records(){
   $type = 'GBIF Sync'; 
   $message = '__download_records';
@@ -29,12 +47,20 @@ function __download_records(){
   # end while
 
 
+  /* Create a file in the /tmp directory to store the 
+   * records that will be downloaded.
+   */
   $results = Array();
   $filename = '/tmp/occurrence.'.time();
 
+  /* Get the code of the participant node configurate during the 
+   * instalation  process to use it as an argument in the gbif's webservices
+   */
   $isocountrycode = __get_participant_node();
 
   $incremental_gap = 1000;
+
+  // get the total amount of resources existing in the gbif central index
   $total = get_occurrence_count($isocountrycode); 
 
   print $total.PHP_EOL;
@@ -42,13 +68,13 @@ function __download_records(){
   for ($i = 0; $i < $total; $i=$i+$incremental_gap){
 
     print $i."\n";
-    $wsresponse =  get_occurrence_list('bj', $i, $incremental_gap);
+    #$wsresponse =  get_occurrence_list('bj', $i, $incremental_gap);
+    $wsresponse =  get_occurrence_list($isocountrycode, $i, $incremental_gap);
     $clean_wsresponse = clean_gbif_xml($wsresponse) ;
     $xml = load_gbif_xml($clean_wsresponse);
     if (! $xml === false){
       $results = get_csvformated_occurrence_data($xml);
     }
-
 
     // delete headers for optimun dwc-a generation.
     unset($results[0]);
@@ -58,10 +84,20 @@ function __download_records(){
     file_put_contents($filename, implode("\n", $results), FILE_APPEND );
   }
 
-  # Generate the excel file.
+  /* Call the function that is going to prepare the information that is 
+   * going to be imported by preparing a DwC-A
+   */
   return __create_dwca_file($filename);
 }
 
+/**
+ * Receive a file name and used a DwC-A template to generate a zip file 
+ * with the downloaded contents.
+ *
+ * @param $occurrence_filename
+ *   The name of the file with the occurrence information
+ *
+ */
 function __create_dwca_file($occurrence_filename = 'occurrence.txt'){
 
   //drupal-like path
@@ -71,10 +107,14 @@ function __create_dwca_file($occurrence_filename = 'occurrence.txt'){
   // this is ugly... realy ugly... damn you drupal
   $directory = drupal_realpath(drupal_get_path('module', 'gbif_sync'));
 
+  // Create the zip
   if( $zip->open( drupal_realpath($filepath) , ZipArchive::CREATE) !== TRUE ){
     die('unable to create the file');
   }
 
+  /* Check if the the files of the template are there and add them to the 
+   * dwca zip file (meta.xml, metadata.xml)
+   */
   if( file_exists($directory.'/includes/dwc-a/meta.xml') !== TRUE ){
     die('unable to open meta.xml file');
   }else{
@@ -87,6 +127,7 @@ function __create_dwca_file($occurrence_filename = 'occurrence.txt'){
     $zip->addFile($directory.'/includes/dwc-a/metadata.xml', 'metadata.xml');
   }
 
+  // Add the file that was generated with the name specified in the template.
   if( file_exists("$occurrence_filename") !== TRUE ){
     die("unable to open $occurrence_filename file");
   }else{
@@ -95,14 +136,28 @@ function __create_dwca_file($occurrence_filename = 'occurrence.txt'){
   
   $zip->close();
 
+  // return the path of the new and shiny zip file.
   return $filepath;
 }
 
+/*
+ * Process the records that were written into the dwca formated zip file
+ */
 function __process_records($filename = 'public://feeds/3ff35386e9b154fc740971db467877e6.zip'){
   $type = 'GBIF Sync'; 
   $message = '__process_records';
   watchdog($type, $message);
 
+  /* Workflow:
+   *
+   *    - Load the feeds_dwca_location_importer
+   *      - Set the file (the zip file)
+   *      - Run the importer
+   *
+   *    - Load the feeds_dwca_specimen_observation_importer
+   *      - Set the file (the zip file)
+   *      - Run the importer
+   */
   // Define the id (machine name) of the importer you want to use.
   $importer_id = 'feeds_dwca_location_importer';
 
@@ -151,6 +206,9 @@ function __get_participant_node(){
 }
 
 
+/* 
+ * Boring day... so... a little humor to end it nicely.
+ */
 function __send_happy_message(){
   $type = 'GBIF Sync'; 
   $message = 'A happy message d[^-^]b';
