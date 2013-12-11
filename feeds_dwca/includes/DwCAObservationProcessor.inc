@@ -22,6 +22,75 @@ include_once "FeedsDwCAMappings.inc";
 class DwCAObservationProcessor extends FeedsProcessor {
 
   /**
+   * Define entity type.
+   */
+  public function entityType() {
+    return 'node';
+  }
+
+
+  /**
+   * Creates a new node in memory and returns it.
+   */
+  protected function newEntity(FeedsSource $source) {
+    $node = new stdClass();
+    $node->type = $this->config['content_type'];
+    $node->changed = REQUEST_TIME;
+    $node->created = REQUEST_TIME;
+    $node->language = LANGUAGE_NONE;
+    node_object_prepare($node);
+    // Populate properties that are set by node_object_prepare().
+    $node->log = 'Created by FeedsNodeProcessor';
+    $node->uid = $this->config['author'];
+    return $node;
+  }
+
+  /**
+   * Loads an existing node.
+   *
+   * If the update existing method is not FEEDS_UPDATE_EXISTING, only the node
+   * table will be loaded, foregoing the node_load API for better performance.
+   */
+  protected function entityLoad(FeedsSource $source, $nid) {
+    if ($this->config['update_existing'] == FEEDS_UPDATE_EXISTING) {
+      $node = node_load($nid, NULL, TRUE);
+    }
+    else {
+      // We're replacing the existing node. Only save the absolutely necessary.
+      $node = db_query("SELECT created, nid, vid, type FROM {node} WHERE nid = :nid", array(':nid' => $nid))->fetchObject();
+      $node->uid = $this->config['author'];
+    }
+    node_object_prepare($node);
+    // Populate properties that are set by node_object_prepare().
+    if ($this->config['update_existing'] == FEEDS_UPDATE_EXISTING) {
+      $node->log = 'Updated by FeedsNodeProcessor';
+    }
+    else {
+      $node->log = 'Replaced by FeedsNodeProcessor';
+    }
+    return $node;
+  }
+
+  /**
+   * Save a node.
+   */
+  public function entitySave($entity) {
+    // If nid is set and a node with that id doesn't exist, flag as new.
+    if (!empty($entity->nid) && !node_load($entity->nid)) {
+      $entity->is_new = TRUE;
+    }
+    node_save($entity);
+  }
+
+  /**
+   * Delete a series of nodes.
+   */
+  protected function entityDeleteMultiple($nids) {
+    node_delete_multiple($nids);
+  }
+
+
+  /**
    * Process the result of the parsing stage.
    *
    * @param FeedsSource $source
@@ -226,7 +295,4 @@ class DwCAObservationProcessor extends FeedsProcessor {
     return $state;
   }
 }
-
-
-
 
